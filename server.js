@@ -1,12 +1,12 @@
 require('dotenv').config();
-const http = require('http'); // Import a module http
+const http = require('http'); 
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
-const WebSocket = require('ws'); // Import the WebSocket library
+const WebSocket = require('ws'); 
 
 const authRoutes = require('./routes/auth');
 const User = require('./models/User');
@@ -16,10 +16,13 @@ const Deposit = require('./models/Deposit');
 require('./config/passport-setup');
 
 const app = express();
-const server = http.createServer(app); // Create an HTTP server from the Express app
-const wss = new WebSocket.Server({ server }); // Create a WebSocket server attached to the HTTP server
+const server = http.createServer(app); 
+const wss = new WebSocket.Server({ server }); 
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
+
+// Tell Express to trust the proxy headers from Render
+app.set('trust proxy', 1);
 
 // A Map to store active WebSocket connections for each user
 const clients = new Map();
@@ -27,12 +30,10 @@ const clients = new Map();
 // WebSocket connection logic
 wss.on('connection', (ws) => {
     console.log('Một client đã kết nối WebSocket');
-
-    // When a message is received from the client
+    
     ws.on('message', (message) => {
         try {
             const data = JSON.parse(message);
-            // When the client registers with their userId, store the connection
             if (data.type === 'register' && data.userId) {
                 clients.set(data.userId, ws);
                 console.log(`Người dùng ${data.userId} đã đăng ký WebSocket.`);
@@ -42,9 +43,7 @@ wss.on('connection', (ws) => {
         }
     });
 
-    // When the connection is closed
     ws.on('close', () => {
-        // Remove the client from our map
         for (let [userId, clientWs] of clients.entries()) {
             if (clientWs === ws) {
                 clients.delete(userId);
@@ -59,7 +58,6 @@ wss.on('connection', (ws) => {
     });
 });
 
-// Function to send a message to a specific user
 function sendToUser(userId, data) {
     const userSocket = clients.get(userId.toString());
     if (userSocket && userSocket.readyState === WebSocket.OPEN) {
@@ -98,7 +96,6 @@ app.get('/api/user', (req, res) => {
     } else { res.json({ loggedIn: false }); }
 });
 
-// Update the order confirmation logic to send a real-time notification
 app.get('/api/orders/update', async (req, res) => {
     const { orderId, newStatus, token } = req.query;
     if (token !== process.env.UPDATE_ORDER_SECRET_TOKEN) return res.status(401).send('<h1>Lỗi: Token không hợp lệ.</h1>');
@@ -107,7 +104,6 @@ app.get('/api/orders/update', async (req, res) => {
         const updatedOrder = await Order.findOneAndUpdate({ orderId: orderId }, { status: newStatus }, { new: true });
         if (!updatedOrder) return res.status(404).send('<h1>Lỗi: Không tìm thấy đơn hàng.</h1>');
 
-        // Send real-time notification to the user
         sendToUser(updatedOrder.userId, {
             type: 'ORDER_UPDATED',
             data: { order: updatedOrder }
@@ -117,7 +113,6 @@ app.get('/api/orders/update', async (req, res) => {
     } catch (error) { console.error("Order update error:", error); res.status(500).send('<h1>Lỗi: Có lỗi xảy ra phía máy chủ.</h1>'); }
 });
 
-// Update the deposit confirmation logic to send a real-time notification
 app.get('/api/deposit/confirm', async (req, res) => {
     const { token } = req.query;
     if (!token) return res.status(400).send('<h1>Token không hợp lệ.</h1>');
@@ -134,7 +129,6 @@ app.get('/api/deposit/confirm', async (req, res) => {
 
         if (!user) return res.status(404).send('<h1>Không tìm thấy người dùng.</h1>');
 
-        // Send real-time notification to the user
         sendToUser(deposit.userId, {
             type: 'DEPOSIT_COMPLETED',
             data: {
@@ -151,7 +145,6 @@ app.get('/api/deposit/confirm', async (req, res) => {
 });
 
 
-// Other routes remain unchanged
 app.post('/api/purchase', async (req, res) => {
     if (!req.isAuthenticated()) return res.status(401).json({ success: false, message: 'Vui lòng đăng nhập để mua hàng.' });
     const { name, price, email: customerEmail } = req.body;
@@ -191,7 +184,7 @@ app.post('/api/deposit/request', async (req, res) => {
         await newDeposit.save();
         const confirmationUrl = `${req.protocol}://${req.get('host')}/api/deposit/confirm?token=${confirmationToken}`;
         const emailHtml = `<h1>Yêu cầu nạp tiền mới!</h1><p>Người dùng: <strong>${user.email.split('@')[0]}</strong></p><p>Số tiền: <strong>${depositAmount.toLocaleString('vi-VN')}đ</strong></p><p>Để xác nhận và cộng tiền, vui lòng nhấn vào liên kết:</p><a href="${confirmationUrl}">Xác nhận đã nhận tiền</a>`;
-
+        
         let transporter = nodemailer.createTransport({ service: 'gmail', auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS } });
         await transporter.sendMail({
             from: `"Shop Tech Noti" <${process.env.EMAIL_USER}>`,
@@ -219,7 +212,6 @@ app.get('/api/deposit/history', async (req, res) => {
     res.json(deposits);
 });
 
-// Start the server
 server.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });

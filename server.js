@@ -24,6 +24,9 @@ const PORT = process.env.PORT || 10000;
 // Tell Express to trust the proxy headers from Render
 app.set('trust proxy', 1);
 
+// --- SECURITY FIX: A Set to track users with in-flight requests ---
+const processingRequests = new Set();
+
 // A Map to store active WebSocket connections for each user
 const clients = new Map();
 
@@ -147,31 +150,61 @@ app.get('/api/deposit/confirm', async (req, res) => {
 
 app.post('/api/purchase', async (req, res) => {
     if (!req.isAuthenticated()) return res.status(401).json({ success: false, message: 'Vui lòng đăng nhập để mua hàng.' });
-    const { name, price, email: customerEmail } = req.body;
-    if (!name || price === undefined) return res.status(400).json({ success: false, message: 'Thông tin sản phẩm không hợp lệ.' });
+    
+    // --- SECURITY FIX: Prevent duplicate requests ---
+    if (processingRequests.has(req.user.id)) {
+        return res.status(429).json({ success: false, message: 'Yêu cầu của bạn đang được xử lý, vui lòng không gửi lại.' });
+    }
+
     try {
+        // Add user to the processing set
+        processingRequests.add(req.user.id);
+
+        const { name, price, email: customerEmail } = req.body;
+        if (!name || price === undefined) return res.status(400).json({ success: false, message: 'Thông tin sản phẩm không hợp lệ.' });
+
         const user = await User.findById(req.user.id);
-        if (user.balance < price) return res.status(400).json({ success: false, message: 'Số dư của bạn không đủ.' });
+        if (user.balance < price) {
+            return res.status(400).json({ success: false, message: 'Số dư của bạn không đủ.' });
+        }
+        
         user.balance -= price;
         const orderId = crypto.randomBytes(4).toString('hex').toUpperCase();
         const newOrder = new Order({ orderId, userId: user._id, productName: name, price, customerEmail, status: 'Đang đợi duyệt' });
+        
         await Promise.all([user.save(), newOrder.save()]);
+        
         res.json({ success: true, message: 'Thanh toán thành công!', newBalance: user.balance });
-    } catch (err) { console.error("Purchase error:", err); res.status(500).json({ success: false, message: 'Lỗi máy chủ, vui lòng thử lại.' }); }
+    } catch (err) { 
+        console.error("Purchase error:", err); 
+        res.status(500).json({ success: false, message: 'Lỗi máy chủ, vui lòng thử lại.' }); 
+    } finally {
+        // --- SECURITY FIX: Remove user from processing set ---
+        processingRequests.delete(req.user.id);
+    }
 });
 
 app.post('/api/deposit/request', async (req, res) => {
     if (!req.isAuthenticated()) {
         return res.status(401).json({ success: false, message: 'Vui lòng đăng nhập.' });
     }
-    const { amount } = req.body;
-    const depositAmount = parseInt(amount, 10);
 
-    if (!depositAmount || depositAmount <= 1000) {
-        return res.status(400).json({ success: false, message: 'Số tiền nạp phải lớn hơn 1,000đ.' });
+    // --- SECURITY FIX: Prevent duplicate requests ---
+    if (processingRequests.has(req.user.id)) {
+        return res.status(429).json({ success: false, message: 'Yêu cầu của bạn đang được xử lý, vui lòng không gửi lại.' });
     }
 
     try {
+        // Add user to the processing set
+        processingRequests.add(req.user.id);
+
+        const { amount } = req.body;
+        const depositAmount = parseInt(amount, 10);
+
+        if (!depositAmount || depositAmount <= 1000) {
+            return res.status(400).json({ success: false, message: 'Số tiền nạp phải lớn hơn 1,000đ.' });
+        }
+        
         const user = req.user;
         const confirmationToken = crypto.randomBytes(20).toString('hex');
 
@@ -197,6 +230,9 @@ app.post('/api/deposit/request', async (req, res) => {
     } catch (err) {
         console.error("Deposit request error:", err);
         res.status(500).json({ success: false, message: 'Lỗi máy chủ, vui lòng thử lại.' });
+    } finally {
+        // --- SECURITY FIX: Remove user from processing set ---
+        processingRequests.delete(req.user.id);
     }
 });
 

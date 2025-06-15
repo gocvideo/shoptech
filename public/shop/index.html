@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Tech - Bán tài khoản Premium</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            color: #1f2937;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex-grow: 1;
+        }
+        .page-transition { animation: pageFadeIn 0.5s ease-out forwards; }
+        @keyframes pageFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .modal-overlay, .page-content { z-index: 50; }
+        .toast-animation { animation: fadeInOut 3s ease-in-out forwards; }
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(20px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+        .custom-radio:checked + label { border-color: #8b5cf6; background-color: #f5f3ff; }
+        .custom-radio:checked + label h4 { color: #7c3aed; }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .status-pending { background-color: #fffbeb; color: #d97706; }
+        .status-completed { background-color: #ecfdf5; color: #16a34a; }
+    </style>
+</head>
+<body class="antialiased">
+
+<header class="bg-white/80 backdrop-blur-sm sticky top-0 z-40 border-b border-gray-200">
+    <div class="container mx-auto px-4">
+        <nav class="flex items-center justify-between h-16">
+            <a href="#" class="nav-link text-2xl font-bold text-gray-900 flex items-center gap-3" data-page="products">
+                <img src="https://shorturl.at/D9pFO" alt="Shop Tech Logo" class="h-8 w-8 rounded-lg object-cover">
+                <span>Shop Tech</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="nav-link text-gray-600 hover:text-purple-600 font-medium transition" data-page="products">Sản phẩm</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-purple-600 font-medium transition" data-page="deposit">Nạp tiền</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-purple-600 font-medium transition" data-page="support">Hỗ trợ</a>
+                <a href="#" class="nav-link text-gray-600 hover:text-purple-600 font-medium transition" data-page="history">Lịch sử đơn hàng</a>
+            </div>
+            <div id="user-status-container" class="hidden md:flex items-center"></div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-800"><i class="ph-bold ph-list text-2xl"></i></button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden py-4">
+            <a href="#" class="nav-link block py-2 text-gray-600 hover:text-purple-600 transition" data-page="products">Sản phẩm</a>
+            <a href="#" class="nav-link block py-2 text-gray-600 hover:text-purple-600 transition" data-page="deposit">Nạp tiền</a>
+            <a href="#" class="nav-link block py-2 text-gray-600 hover:text-purple-600 transition" data-page="support">Hỗ trợ</a>
+            <a href="#" class="nav-link block py-2 text-gray-600 hover:text-purple-600 transition" data-page="history">Lịch sử đơn hàng</a>
+            <div id="mobile-user-status-container" class="mt-4 border-t border-gray-200 pt-4"></div>
+        </div>
+    </div>
+</header>
+
+<main class="container mx-auto px-4 py-12">
+    <!-- Trang Sản Phẩm -->
+    <div id="page-products" class="page-content">
+        <section class="text-center mb-16"><h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900">Cửa hàng tài khoản Premium</h1><p class="text-lg text-gray-600 max-w-2xl mx-auto">Mua sắm các tài khoản giải trí, học tập và làm việc với mức giá tốt nhất, an toàn và nhanh chóng.</p></section>
+        <section><h2 class="text-3xl font-bold mb-8 text-center text-gray-900">Sản phẩm nổi bật</h2><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- YouTube Premium + Gemini Pro -->
+            <div class="bg-white rounded-lg p-6 flex flex-col text-center transform hover:scale-105 transition-transform duration-300 shadow-lg border border-gray-200"><div class="flex-grow flex flex-col items-center"><img src="https://th.bing.com/th/id/R.902b725600e005ff177e5a7be368a76b?rik=YDpxjYwhYP4X2Q&riu=http%3a%2f%2fbeautifulpixels.com%2fwp-content%2fuploads%2f2017%2f08%2fyoutube-new-logo-2017.gif&ehk=i%2f7Zh9JLNjpBoka2n7yriAOBesafv1k4cfFWTIl7IuQ%3d&risl=&pid=ImgRaw&r=0" alt="YouTube Premium Logo" class="h-16 mb-4"><h3 class="text-xl font-semibold mb-2 text-gray-900">Youtube Premium + Gemini Pro (4 trong 1)</h3><p class="text-gray-500 mb-4 flex-grow">Gồm 2TB Google One, Youtube Premium, Gemini Pro, Note Book.</p><p class="text-2xl font-bold text-purple-600 mb-6">25.000đ<span class="text-base font-normal text-gray-500">/tháng</span></p></div><button class="buy-button w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition" data-product-name="Youtube Premium + Gemini Pro (4 trong 1)" data-price="25000" data-requires-gmail="true">Mua ngay</button></div>
+            <!-- ChatGPT Plus -->
+            <div class="bg-white rounded-lg p-6 flex flex-col text-center transform hover:scale-105 transition-transform duration-300 shadow-lg border border-gray-200"><div class="flex-grow flex flex-col items-center"><img src="https://static.vecteezy.com/system/resources/previews/021/972/603/non_2x/minsk-belarus-03-27-2023-openai-and-chatgpt-logo-artifical-chatbot-system-chat-bot-button-for-web-app-and-phone-icon-symbol-editorial-illustration-free-vector.jpg" alt="ChatGPT Logo" class="h-16 mb-4"><h3 class="text-xl font-semibold mb-2 text-gray-900">ChatGPT Plus</h3><p class="text-gray-500 mb-4 flex-grow">Nâng cấp trên Gmail chính chủ của bạn.</p><p class="text-2xl font-bold text-green-600 mb-6">75.000đ<span class="text-base font-normal text-gray-500">/tháng</span></p></div><button class="buy-button w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition" data-product-name="ChatGPT Plus" data-price="75000" data-requires-gmail="true">Mua ngay</button></div>
+            <!-- Canva Pro -->
+            <div class="bg-white rounded-lg p-6 flex flex-col text-center transform hover:scale-105 transition-transform duration-300 shadow-lg border border-gray-200"><div class="flex-grow flex flex-col items-center"><img src="https://carmentune.com/wp-content/uploads/Canva-logo-1024x1024.png" alt="Canva Pro Logo" class="h-16 mb-4"><h3 class="text-xl font-semibold mb-2 text-gray-900">Canva Pro</h3><p class="text-gray-500 mb-4 flex-grow">Chọn gói phù hợp với bạn.</p><p class="text-2xl font-bold text-blue-600 mb-6">99.000đ<span class="text-base font-normal text-gray-500">/năm</span></p></div><button class="buy-button w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition" data-product-name="Canva Pro" data-requires-gmail="false" data-pricing-options='[{"label": "1 Năm", "price": 99000, "priceText": "99.000đ"}]'>Chọn gói</button></div>
+            <!-- Capcut Pro -->
+            <div class="bg-white rounded-lg p-6 flex flex-col text-center transform hover:scale-105 transition-transform duration-300 shadow-lg border border-gray-200"><div class="flex-grow flex flex-col items-center"><img src="https://ltdlover.com/wp-content/uploads/2023/12/capcut-pro-1-nam.jpg" alt="Capcut Pro Logo" class="h-16 mb-4"><h3 class="text-xl font-semibold mb-2 text-gray-900">Capcut Pro</h3><p class="text-gray-500 mb-4 flex-grow">Mở khóa tất cả tính năng Pro.</p><p class="text-2xl font-bold text-gray-800 mb-6">15.000đ<span class="text-base font-normal text-gray-500">/7 ngày</span></p></div><button class="buy-button w-full bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-lg transition" data-product-name="Capcut Pro" data-requires-gmail="false" data-pricing-options='[{"label": "7 Ngày", "price": 15000, "priceText": "15.000đ"}, {"label": "14 Ngày", "price": 25000, "priceText": "25.000đ"}, {"label": "30 Ngày", "price": 50000, "priceText": "50.000đ"}, {"label": "6 Tháng", "price": 180000, "priceText": "180.000đ"}, {"label": "1 Năm", "price": 250000, "priceText": "250.000đ"}]'>Chọn gói</button></div>
+        </div></section>
+    </div>
+
+    <!-- Trang Nạp Tiền -->
+    <div id="page-deposit" class="page-content hidden">
+        <section class="max-w-4xl mx-auto">
+            <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-lg">
+                <h2 class="text-3xl font-bold mb-2 text-center text-gray-900">Nạp tiền vào tài khoản</h2>
+                <p class="text-center text-gray-500 mb-6">Thực hiện chuyển khoản và tạo yêu cầu để được xác nhận.</p>
+
+                <div id="deposit-logged-out" class="hidden text-center text-gray-600 max-w-xl mx-auto py-8">
+                    <i class="ph-bold ph-user-circle text-6xl text-gray-400 mx-auto"></i>
+                    <p class="mt-4">Vui lòng đăng nhập để sử dụng tính năng nạp tiền.</p>
+                    <a href="/login/" class="mt-4 inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">Đăng nhập ngay</a>
+                </div>
+
+                <div id="deposit-logged-in" class="hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 text-center">
+                            <h3 class="font-semibold text-lg mb-4 text-blue-800">Thông tin chuyển khoản</h3>
+                            <p class="text-sm text-gray-600 mb-4">Quét mã QR để chuyển khoản nhanh.</p>
+                            <img src="ma_qr.jpg" alt="Mã QR nạp tiền" class="w-48 h-48 mx-auto rounded-lg shadow-md" onerror="this.onerror=null;this.src='https://placehold.co/192x192/e0e7ff/3b82f6?text=QR+Code';">
+                            <div class="mt-4 text-sm text-left">
+                                <p><strong>Ngân hàng:</strong> Vietcombank</p>
+                                <p><strong>Số tài khoản:</strong> 1032849466</p>
+                                <p><strong>Chủ tài khoản:</strong> HA HUY HIEU</p>
+                                <p class="mt-2"><strong>Nội dung chuyển khoản:</strong> <span id="deposit-username-display" class="font-mono text-purple-600 bg-purple-100 px-2 py-1 rounded">[Tên người dùng]</span></p>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg border">
+                            <h3 class="font-semibold text-lg mb-4 text-center">Tạo yêu cầu nạp tiền</h3>
+                            <p class="text-center text-gray-500 text-sm mb-4">Sau khi đã chuyển khoản, nhập chính xác số tiền bạn đã gửi và nhấn nút bên dưới.</p>
+                            <form id="deposit-request-form" class="space-y-4">
+                                <div>
+                                    <label for="deposit-amount" class="block text-sm font-medium text-gray-700">Số tiền đã chuyển (VNĐ)</label>
+                                    <input type="number" id="deposit-amount" placeholder="Ví dụ: 50000" class="mt-1 w-full bg-white border border-gray-300 rounded-md px-4 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500" required>
+                                </div>
+                                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition flex items-center justify-center gap-2">
+                                    <i class="ph-bold ph-paper-plane-tilt"></i>
+                                    <span>Gửi yêu cầu xác nhận</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="mt-12">
+                        <h3 class="text-2xl font-bold mb-4 text-center text-gray-800">Lịch sử nạp tiền</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white rounded-lg shadow">
+                                <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Thời gian</th>
+                                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Số tiền</th>
+                                    <th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th>
+                                </tr>
+                                </thead>
+                                <tbody id="deposit-history-table-body" class="divide-y divide-gray-200">
+                                </tbody>
+                            </table>
+                            <div id="no-deposits-message" class="hidden text-center py-10 text-gray-500">
+                                <i class="ph-bold ph-receipt text-4xl mb-2"></i>
+                                <p>Bạn chưa có giao dịch nạp tiền nào.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Trang Hỗ Trợ -->
+    <div id="page-support" class="page-content hidden"><section class="bg-white max-w-4xl mx-auto p-8 rounded-lg border border-gray-200 shadow-lg"><h2 class="text-3xl font-bold mb-6 text-center text-gray-900">Trung tâm Hỗ trợ</h2><p class="text-center text-gray-600 max-w-xl mx-auto mb-8">Gặp sự cố? Đội ngũ hỗ trợ của chúng tôi luôn sẵn sàng giúp đỡ bạn 24/7. Vui lòng liên hệ qua các kênh bên dưới để được phản hồi nhanh nhất.</p><div class="flex justify-center gap-6"><a href="#" class="flex items-center gap-2 bg-green-500 text-white font-bold py-2 px-4 rounded-lg transition hover:bg-green-600"><i class="ph-bold ph-whatsapp-logo"></i><span>Zalo</span></a><a href="#" class="flex items-center gap-2 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg transition hover:bg-blue-600"><i class="ph-bold ph-telegram-logo"></i><span>Telegram</span></a><a href="#" class="flex items-center gap-2 bg-gray-700 text-white font-bold py-2 px-4 rounded-lg transition hover:bg-gray-800"><i class="ph-bold ph-messenger-logo"></i><span>Messenger</span></a></div></section></div>
+
+    <!-- Trang Lịch sử đơn hàng -->
+    <div id="page-history" class="page-content hidden"><section class="bg-white max-w-5xl mx-auto p-8 rounded-lg border border-gray-200 shadow-lg"><h2 class="text-3xl font-bold mb-6 text-center text-gray-900">Lịch sử giao dịch</h2><div id="history-logged-out" class="hidden text-center text-gray-600 max-w-xl mx-auto"><i class="ph-bold ph-user-circle text-6xl text-gray-400 mx-auto"></i><p class="mt-4">Vui lòng đăng nhập để xem lịch sử mua hàng của bạn.</p><a href="/login/" class="mt-4 inline-block bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">Đăng nhập ngay</a></div><div id="history-logged-in" class="hidden"><div class="mb-6"><div class="relative"><input type="text" id="order-search-input" placeholder="Tìm theo Mã đơn hàng hoặc Email..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"><i class="ph-bold ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i></div></div><div class="overflow-x-auto"><table class="min-w-full bg-white"><thead class="bg-gray-50"><tr><th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mã ĐH</th><th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sản phẩm</th><th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Số tiền</th><th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mail KH</th><th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ngày mua</th><th class="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Trạng thái</th></tr></thead><tbody id="order-history-table-body" class="divide-y divide-gray-200"></tbody></table></div><div id="no-orders-message" class="hidden text-center py-10 text-gray-500"><i class="ph-bold ph-shopping-cart text-4xl mb-2"></i><p>Bạn chưa có đơn hàng nào.</p></div></div></section></div>
+</main>
+<footer class="bg-gray-100 mt-16 border-t border-gray-200"><div class="container mx-auto px-4 py-6 text-center text-gray-500"><p>&copy; 2025 Shop Tech. All rights reserved</p></div></footer>
+
+<!-- Modals -->
+<div id="gmail-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden"><div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 relative shadow-2xl"><button id="close-gmail-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700"><i class="ph-bold ph-x text-2xl"></i></button><h3 id="gmail-modal-title" class="text-2xl font-bold mb-4 text-gray-900"></h3><p class="text-gray-600 mb-2">Sản phẩm này cần được nâng cấp trên tài khoản Gmail của bạn. Vui lòng nhập chính xác địa chỉ Gmail.</p><form id="gmail-order-form"><div class="mb-4"><label for="gmail-input" class="block text-gray-700 mb-2 font-medium">Địa chỉ Gmail</label><input type="email" id="gmail-input" placeholder="vidu@gmail.com" class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500" required></div><button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition">Xác nhận đặt hàng</button></form></div></div>
+<div id="pricing-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden"><div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 relative shadow-2xl"><button id="close-pricing-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700"><i class="ph-bold ph-x text-2xl"></i></button><h3 id="pricing-modal-title" class="text-2xl font-bold mb-6 text-gray-900"></h3><form id="pricing-order-form"><div id="pricing-options-container" class="space-y-4 mb-6"></div><button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition">Xác nhận</button></form></div></div>
+<div id="insufficient-balance-modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden"><div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 relative shadow-2xl text-center"><button id="close-balance-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700"><i class="ph-bold ph-x text-2xl"></i></button><i class="ph-bold ph-warning-circle text-5xl text-red-500 mx-auto mb-4"></i><h3 class="text-2xl font-bold mb-2 text-gray-900">Không đủ số dư</h3><p class="text-gray-600 mb-6">Tài khoản của bạn không đủ để thực hiện giao dịch này. Vui lòng nạp thêm tiền.</p><div class="flex gap-4"><button id="deposit-now-button" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition">Nạp tiền</button><button id="close-balance-modal-2" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg transition">Đóng</button></div></div></div>
+<div id="toast" class="fixed bottom-5 right-5 bg-green-500 text-white py-2 px-5 rounded-lg shadow-lg opacity-0 z-50"><p id="toast-message"></p></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        let currentUser = null;
+        let ws = null;
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page-content');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const buyButtons = document.querySelectorAll('.buy-button');
+        const gmailModal = document.getElementById('gmail-modal');
+        const closeGmailModalButton = document.getElementById('close-gmail-modal');
+        const gmailOrderForm = document.getElementById('gmail-order-form');
+        const gmailInput = document.getElementById('gmail-input');
+        const gmailModalTitle = document.getElementById('gmail-modal-title');
+        const pricingModal = document.getElementById('pricing-modal');
+        const closePricingModalButton = document.getElementById('close-pricing-modal');
+        const pricingOrderForm = document.getElementById('pricing-order-form');
+        const pricingModalTitle = document.getElementById('pricing-modal-title');
+        const pricingOptionsContainer = document.getElementById('pricing-options-container');
+        const balanceModal = document.getElementById('insufficient-balance-modal');
+        const closeBalanceModalButtons = document.querySelectorAll('#close-balance-modal, #close-balance-modal-2');
+        const depositNowButton = document.getElementById('deposit-now-button');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+        const depositRequestForm = document.getElementById('deposit-request-form');
+        const depositAmountInput = document.getElementById('deposit-amount');
+        const depositLoggedInView = document.getElementById('deposit-logged-in');
+        const depositLoggedOutView = document.getElementById('deposit-logged-out');
+        const depositHistoryTableBody = document.getElementById('deposit-history-table-body');
+        const noDepositsMessage = document.getElementById('no-deposits-message');
+        const historyLoggedInView = document.getElementById('history-logged-in');
+        const historyLoggedOutView = document.getElementById('history-logged-out');
+        const orderSearchInput = document.getElementById('order-search-input');
+        const orderHistoryTableBody = document.getElementById('order-history-table-body');
+        const noOrdersMessage = document.getElementById('no-orders-message');
+
+        const getStatusBadge = (status) => { let badgeClass = 'bg-gray-100 text-gray-800'; switch (status) { case 'Đang đợi duyệt': badgeClass = 'bg-yellow-100 text-yellow-800'; break; case 'Đang thực hiện': badgeClass = 'bg-blue-100 text-blue-800'; break; case 'Đã hoàn thành': badgeClass = 'bg-green-100 text-green-800'; break; case 'Đã hủy': badgeClass = 'bg-red-100 text-red-800'; break; } return `<span class="status-badge ${badgeClass}">${status}</span>`; };
+        const formatCurrency = (amount) => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount || 0);
+        const showToast = (message, isError = false) => { toastMessage.textContent = message; toast.className = `fixed bottom-5 right-5 text-white py-2 px-5 rounded-lg shadow-lg z-50 toast-animation ${isError ? 'bg-red-500' : 'bg-green-600'}`; toast.classList.remove('toast-animation'); void toast.offsetWidth; toast.classList.add('toast-animation'); };
+        const hideAllModals = () => { gmailModal.classList.add('hidden'); pricingModal.classList.add('hidden'); balanceModal.classList.add('hidden'); };
+
+        function connectWebSocket() {
+            if (!currentUser || (ws && ws.readyState === WebSocket.OPEN)) return;
+            const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            ws = new WebSocket(`${wsProtocol}//${window.location.host}`);
+
+            ws.onopen = () => {
+                console.log('WebSocket đã kết nối.');
+                ws.send(JSON.stringify({ type: 'register', userId: currentUser.id }));
+            };
+
+            ws.onmessage = (event) => {
+                const message = JSON.parse(event.data);
+                switch (message.type) {
+                    case 'DEPOSIT_COMPLETED':
+                        showToast(`Bạn đã được cộng ${formatCurrency(message.data.deposit.amount)}!`);
+                        currentUser.balance = message.data.newBalance;
+                        updateUserBalanceUI();
+                        fetchAndRenderDepositHistory();
+                        break;
+                    case 'ORDER_UPDATED':
+                        showToast(`Đơn hàng #${message.data.order.orderId} đã cập nhật trạng thái.`);
+                        fetchAndRenderOrders();
+                        break;
+                }
+            };
+
+            ws.onclose = () => {
+                console.log('WebSocket đã ngắt kết nối. Thử kết nối lại sau 5 giây.');
+                ws = null;
+                setTimeout(connectWebSocket, 5000);
+            };
+
+            ws.onerror = (error) => {
+                console.error('Lỗi WebSocket:', error);
+                ws.close();
+            };
+        }
+
+        function updateUserBalanceUI() {
+            if(!currentUser) return;
+            const balanceElements = document.querySelectorAll('.text-purple-600.font-semibold');
+            balanceElements.forEach(el => el.textContent = formatCurrency(currentUser.balance));
+        }
+
+        const switchPage = (pageId) => {
+            pages.forEach(page => page.classList.add('hidden'));
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+                targetPage.classList.add('page-transition');
+            }
+            mobileMenu.classList.add('hidden');
+            if (currentUser) {
+                if (pageId === 'history') fetchAndRenderOrders();
+                if (pageId === 'deposit') fetchAndRenderDepositHistory();
+            }
+        };
+
+        const fetchAndRenderOrders = async (searchTerm = '') => { if (!currentUser) return; orderHistoryTableBody.innerHTML = '<tr><td colspan="6" class="text-center py-10">Đang tải...</td></tr>'; noOrdersMessage.classList.add('hidden'); try { const response = await fetch(`/api/orders?q=${encodeURIComponent(searchTerm)}`); const orders = await response.json(); orderHistoryTableBody.innerHTML = ''; if (orders.length === 0) { noOrdersMessage.classList.remove('hidden'); } else { noOrdersMessage.classList.add('hidden'); orders.forEach(order => { const orderRow = `<tr class="hover:bg-gray-50"><td class="py-4 px-4 text-sm font-mono text-gray-500">${order.orderId}</td><td class="py-4 px-4 text-sm font-medium text-gray-900">${order.productName}</td><td class="py-4 px-4 text-sm text-gray-700">${formatCurrency(order.price)}</td><td class="py-4 px-4 text-sm text-gray-500">${order.customerEmail || 'N/A'}</td><td class="py-4 px-4 text-sm text-gray-500">${new Date(order.createdAt).toLocaleDateString('vi-VN')}</td><td class="py-4 px-4 text-sm">${getStatusBadge(order.status)}</td></tr>`; orderHistoryTableBody.insertAdjacentHTML('beforeend', orderRow); }); } } catch (error) { orderHistoryTableBody.innerHTML = '<tr><td colspan="6" class="text-center py-10 text-red-500">Không thể tải lịch sử đơn hàng.</td></tr>'; } };
+
+        const fetchAndRenderDepositHistory = async () => {
+            if (!currentUser) return;
+            depositHistoryTableBody.innerHTML = '<tr><td colspan="3" class="text-center py-10">Đang tải...</td></tr>';
+            noDepositsMessage.classList.add('hidden');
+            try {
+                const response = await fetch('/api/deposit/history');
+                const deposits = await response.json();
+                depositHistoryTableBody.innerHTML = '';
+                if (deposits.length === 0) {
+                    noDepositsMessage.classList.remove('hidden');
+                } else {
+                    noDepositsMessage.classList.add('hidden');
+                    deposits.forEach(deposit => {
+                        const statusText = deposit.status === 'pending' ? 'Đang chờ' : 'Hoàn thành';
+                        const statusClass = deposit.status === 'pending' ? 'status-pending' : 'status-completed';
+                        const depositRow = `
+                                <tr class="hover:bg-gray-50">
+                                    <td class="py-3 px-4 text-sm text-gray-500">${new Date(deposit.createdAt).toLocaleString('vi-VN')}</td>
+                                    <td class="py-3 px-4 text-sm font-medium text-gray-900">${formatCurrency(deposit.amount)}</td>
+                                    <td class="py-3 px-4 text-sm"><span class="status-badge ${statusClass}">${statusText}</span></td>
+                                </tr>`;
+                        depositHistoryTableBody.insertAdjacentHTML('beforeend', depositRow);
+                    });
+                }
+            } catch (error) {
+                depositHistoryTableBody.innerHTML = '<tr><td colspan="3" class="text-center py-10 text-red-500">Không thể tải lịch sử nạp tiền.</td></tr>';
+            }
+        };
+
+        async function checkUserStatus() { const userStatusContainer = document.getElementById('user-status-container'); const mobileUserStatusContainer = document.getElementById('mobile-user-status-container'); const depositUsernameDisplay = document.getElementById('deposit-username-display'); const loggedOutHTML = `<a href="/login/" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition text-sm">Đăng nhập</a>`; const loggedOutMobileHTML = `<div class="px-2"><a href="/login/" class="block text-center bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition text-sm">Đăng nhập / Đăng ký</a></div>`; try { const response = await fetch('/api/user'); const data = await response.json(); if (data.loggedIn) { currentUser = data.user; const loggedInHTML = `<div class="flex items-center gap-4"><div class="text-right"><div class="text-sm font-medium text-gray-800 capitalize">${currentUser.username}</div><div class="text-xs text-purple-600 font-semibold">${formatCurrency(currentUser.balance)}</div></div><a href="/auth/logout" class="text-gray-500 hover:text-red-500 transition" title="Đăng xuất"><i class="ph-bold ph-sign-out text-2xl"></i></a></div>`; const loggedInMobileHTML = `<div class="px-2 space-y-2"><div class="text-left"><div class="text-base font-medium text-gray-800 capitalize">${currentUser.username}</div><div class="text-sm text-purple-600 font-semibold">${formatCurrency(currentUser.balance)}</div></div><a href="/auth/logout" class="block text-center bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg transition text-sm">Đăng xuất</a></div>`; userStatusContainer.innerHTML = loggedInHTML; mobileUserStatusContainer.innerHTML = loggedInMobileHTML; depositLoggedInView.classList.remove('hidden'); depositLoggedOutView.classList.add('hidden'); historyLoggedInView.classList.remove('hidden'); historyLoggedOutView.classList.add('hidden'); if (depositUsernameDisplay) depositUsernameDisplay.textContent = currentUser.username; connectWebSocket(); } else { currentUser = null; userStatusContainer.innerHTML = loggedOutHTML; mobileUserStatusContainer.innerHTML = loggedOutMobileHTML; depositLoggedInView.classList.add('hidden'); depositLoggedOutView.classList.remove('hidden'); historyLoggedInView.classList.add('hidden'); historyLoggedOutView.classList.remove('hidden'); } } catch (error) { currentUser = null; console.error('Lỗi khi kiểm tra trạng thái đăng nhập:', error); userStatusContainer.innerHTML = loggedOutHTML; mobileUserStatusContainer.innerHTML = loggedOutMobileHTML; depositLoggedInView.classList.add('hidden'); depositLoggedOutView.classList.remove('hidden'); historyLoggedInView.classList.add('hidden'); historyLoggedOutView.classList.remove('hidden'); } }
+
+        const handlePurchase = async (product) => { try { const res = await fetch('/api/purchase', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(product) }); const result = await res.json(); if(res.ok && result.success) { showToast(`Mua hàng "${product.name}" thành công!`); await checkUserStatus(); } else { showToast(result.message || 'Có lỗi xảy ra', true); } } catch (err) { showToast('Lỗi kết nối đến máy chủ.', true); } hideAllModals(); };
+
+        buyButtons.forEach(button => { button.addEventListener('click', () => { if (!currentUser) { window.location.href = '/login/'; return; } const productName = button.dataset.productName; const price = parseInt(button.dataset.price, 10); const requiresGmail = button.dataset.requiresGmail === 'true'; const pricingOptions = button.dataset.pricingOptions; currentProduct = { name: productName, price: price }; if (pricingOptions) { const options = JSON.parse(pricingOptions); pricingModalTitle.textContent = `Chọn gói cho ${productName}`; pricingOptionsContainer.innerHTML = ''; options.forEach((option, index) => { const optionId = `option-${index}`; const optionHTML = `<div><input type="radio" id="${optionId}" name="pricing-option" value="${option.price}" class="hidden custom-radio" ${index === 0 ? 'checked' : ''} data-label="${option.label}"><label for="${optionId}" class="flex justify-between items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer transition"><h4 class="font-semibold text-gray-700">${option.label}</h4><span class="font-bold text-lg text-purple-600">${option.priceText}</span></label></div>`; pricingOptionsContainer.insertAdjacentHTML('beforeend', optionHTML); }); pricingModal.classList.remove('hidden'); } else { if (currentUser.balance < price) { balanceModal.classList.remove('hidden'); } else { if (requiresGmail) { gmailModalTitle.textContent = `Đặt hàng: ${productName}`; gmailModal.classList.remove('hidden'); } else { handlePurchase(currentProduct); } } } }); });
+
+        gmailOrderForm.addEventListener('submit', (e) => { e.preventDefault(); handlePurchase({ ...currentProduct, email: gmailInput.value }); });
+        pricingOrderForm.addEventListener('submit', (e) => { e.preventDefault(); const selectedOption = pricingOrderForm.querySelector('input[name="pricing-option"]:checked'); if (selectedOption) { const price = parseInt(selectedOption.value, 10); const label = selectedOption.dataset.label; if (currentUser.balance < price) { hideAllModals(); balanceModal.classList.remove('hidden'); } else { handlePurchase({ ...currentProduct, price: price, name: `${currentProduct.name} - ${label}` }); } } });
+
+        if (depositRequestForm) {
+            depositRequestForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const amount = depositAmountInput.value;
+                if (!amount || amount <= 0) {
+                    showToast('Vui lòng nhập số tiền hợp lệ.', true);
+                    return;
+                }
+                try {
+                    const response = await fetch('/api/deposit/request', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ amount: amount })
+                    });
+                    const result = await response.json();
+                    showToast(result.message, !result.success);
+                    if (result.success) {
+                        depositAmountInput.value = '';
+                        await fetchAndRenderDepositHistory();
+                    }
+                } catch (err) {
+                    showToast('Lỗi kết nối đến máy chủ.', true);
+                }
+            });
+        }
+
+        closeGmailModalButton.addEventListener('click', hideAllModals);
+        closePricingModalButton.addEventListener('click', hideAllModals);
+        closeBalanceModalButtons.forEach(btn => btn.addEventListener('click', hideAllModals));
+        depositNowButton.addEventListener('click', () => { hideAllModals(); switchPage('deposit'); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideAllModals(); });
+
+        navLinks.forEach(link => link.addEventListener('click', (e) => { e.preventDefault(); switchPage(link.dataset.page); }));
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+        let searchTimeout;
+        orderSearchInput.addEventListener('input', () => { clearTimeout(searchTimeout); searchTimeout = setTimeout(() => { fetchAndRenderOrders(orderSearchInput.value); }, 300); });
+
+        switchPage('products');
+        checkUserStatus();
+    });
+</script>
+</body>
+</html>
